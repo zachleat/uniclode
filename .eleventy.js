@@ -9,14 +9,19 @@ module.exports = function(eleventyConfig) {
 
   let commaChar = "x";
   let plusChar = "";
+  let isRangePrefix = "_";
   function encodeRange(range = "") {
-    return range.split("U+").join(plusChar).split(",").join(commaChar);
+    return isRangePrefix + range.split("U+").join(plusChar).split(",").join(commaChar);
   }
   function decodeRange(str = "") {
     return str.split(commaChar).map(entry => `U+${entry}`).join(",");
   }
   function getCharsetFromRange(str) {
-    return CharacterSet.parseUnicodeRange(decodeRange(str));
+    if(str.startsWith(isRangePrefix)) {
+      return CharacterSet.parseUnicodeRange(decodeRange(str.substr(isRangePrefix.length)));
+    }
+
+    return new CharacterSet(str);
   }
   function isSubset(code, characters) {
     let charset = getCharsetFromRange(characters);
