@@ -29,7 +29,11 @@ module.exports = function(eleventyConfig) {
     } else {
       charset.add(code); // toggle on
     }
-    return `/${encodeRange(charset.toHexRangeString())}/`;
+    let slug = encodeRange(charset.toHexRangeString());
+    if(slug) {
+      return `/${slug}/`;
+    }
+    return "/";
   });
 
   eleventyConfig.addFilter("charctersToRange", (characters) => {
