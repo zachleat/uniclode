@@ -36,7 +36,7 @@ module.exports = function(eleventyConfig) {
     return "/";
   });
 
-  eleventyConfig.addFilter("charctersToRange", (characters) => {
+  eleventyConfig.addFilter("charactersToRange", (characters) => {
     let charset = getCharsetFromRange(characters);
     return charset.toHexRangeString();
   });
