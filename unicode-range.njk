@@ -1,0 +1,23 @@
+---
+permalink:
+  serverless:
+    - /
+    - /:chars/
+layout: layout.njk
+---
+<h1><a href="/">Uniclode</a></h1>
+<p>Built with <a href="https://www.11ty.dev/docs/plugins/serverless/">Eleventy Serverless</a> (and 0KB clientside JavaScript)</p>
+<h2><code>unicode-range: {{ eleventy.serverless.path.chars | charctersToRange }}</code></h2>
+
+<div class="characters">
+{% for charCode in range(33, 126)  %}
+<a href="{{ charCode | charsetUrl(eleventy.serverless.path.chars) }}" class="char{% if charCode | inCharacterSet(eleventy.serverless.path.chars) %} char-highlight{% endif %}">
+  <code>{{ charCode }}</code>
+  <code>{{ charCode | charCodeToString }}</code>
+</a>
+{% endfor %}
+</div>
+
+<pre>
+{{ eleventy.serverless | dump(2) | safe }}
+</pre>

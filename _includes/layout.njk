@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="">
+		<title></title>
+		<style>
+		body {
+			font-family: system-ui, sans-serif;
+		}
+		.characters {
+			display: flex;
+			flex-wrap: wrap;
+			gap: .5em 1em;
+		}
+		.char {
+			border: 1px solid;
+			border-radius: .3em;
+			padding: 1em;
+			color: inherit;
+			text-decoration: none;
+		}
+		a[href].char:focus,
+		a[href].char:hover {
+			box-shadow: 0 0 0 4px #000;
+		}
+		.char code {
+			display: block;
+		}
+		.char code:last-child {
+			font-size: 2em;
+		}
+		.char-highlight {
+			background-color: #444;
+			color: #fff;
+		}
+		</style>
+	</head>
+	<body>
+		{{ content | safe }}
+	</body>
+</html>
