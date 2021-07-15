@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npx @11ty/eleventy --serve",
-    "build": "npx @11ty/eleventy"
+    "build": "mkdir _site && npx @11ty/eleventy"
   },
   "keywords": [],
   "author": "",
