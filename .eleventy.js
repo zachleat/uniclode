@@ -16,7 +16,7 @@ module.exports = function(eleventyConfig) {
   function decodeRange(str = "") {
     return str.split(commaChar).map(entry => `U+${entry}`).join(",");
   }
-  function getCharsetFromRange(str) {
+  function getCharsetFromRange(str = "") {
     if(str.startsWith(isRangePrefix)) {
       return CharacterSet.parseUnicodeRange(decodeRange(str.substr(isRangePrefix.length)));
     }
