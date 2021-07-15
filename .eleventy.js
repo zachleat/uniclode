@@ -7,8 +7,6 @@ module.exports = function(eleventyConfig) {
     functionsDir: "./netlify/functions/",
   });
 
-  eleventyConfig.addFilter("charCodeToString", code => String.fromCharCode(code));
-
   let commaChar = "x";
   let plusChar = "";
   function encodeRange(range = "") {
@@ -25,6 +23,8 @@ module.exports = function(eleventyConfig) {
     let codeCharset = new CharacterSet(code);
     return codeCharset.subset(charset);
   }
+
+  eleventyConfig.addFilter("charCodeToString", code => String.fromCharCode(code));
 
   eleventyConfig.addFilter("charsetUrl", (code, previousCharacters) => {
     let charset = getCharsetFromRange(previousCharacters);
