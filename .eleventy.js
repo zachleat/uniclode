@@ -20,15 +20,20 @@ module.exports = function(eleventyConfig) {
   function getCharsetFromRange(str) {
     return CharacterSet.parseUnicodeRange(decodeRange(str));
   }
+  function isSubset(code, characters) {
+    let charset = getCharsetFromRange(characters);
+    let codeCharset = new CharacterSet(code);
+    return codeCharset.subset(charset);
+  }
 
   eleventyConfig.addFilter("charsetUrl", (code, previousCharacters) => {
     let charset = getCharsetFromRange(previousCharacters);
-    let codeCharset = new CharacterSet(code);
-    if(codeCharset.subset(charset)) {
+    if(isSubset(code, previousCharacters)) {
       charset.remove(code); // toggle off
     } else {
       charset.add(code); // toggle on
     }
+
     let slug = encodeRange(charset.toHexRangeString());
     if(slug) {
       return `/${slug}/`;
@@ -41,11 +46,7 @@ module.exports = function(eleventyConfig) {
     return charset.toHexRangeString();
   });
 
-  eleventyConfig.addFilter("inCharacterSet", (code, characters) => {
-    let charset = getCharsetFromRange(characters);
-    let codeCharset = new CharacterSet(code);
-    return codeCharset.subset(charset);
-  });
+  eleventyConfig.addFilter("inCharacterSet", (code, characters) => isSubset(code, characters));
 
   
 };
